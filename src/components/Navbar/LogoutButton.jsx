@@ -1,19 +1,14 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import Button from '../common/Button';
+import React from 'react';
 
-const LogoutButton = () => {
-  const { logout } = useContext(AuthContext);
-
+function LogoutButton() {
   const handleLogout = () => {
-    logout();
+    localStorage.removeItem('token');
+    window.location.href = '/';
   };
 
   return (
-    <Button onClick={handleLogout} className="bg-red-500 hover:bg-red-700">
-      Logout
-    </Button>
+    <button onClick={handleLogout}>Logout</button>
   );
-};
+}
 
 export default LogoutButton;

@@ -2,32 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* index.css */
-body {
-  background-color: #1a202c;
-  color: white;
-  font-family: 'Arial', sans-serif;
+/* Custom styles */
+.navbar {
+  @apply bg-blue-500 p-4 text-white;
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
+.input {
+  @apply border p-2 m-2;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
-  background-color: #2d3748;
-  color: white;
-  border: 1px solid #4a5568;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  width: 100%;
+.button {
+  @apply bg-blue-500 text-white p-2 m-2;
 }
-
-input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="password"]::placeholder {
-  color: #a0aec0;
-}
-
-button {
-  cursor: pointer;
-}
-        

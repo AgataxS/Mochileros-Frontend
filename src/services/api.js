@@ -7,13 +7,19 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
+
 export const getUserData = async () => {
   try {
-    const response = await api.get('/me', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+    const response = await api.get('/me');
     return response.data;
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -21,9 +27,9 @@ export const getUserData = async () => {
   }
 };
 
-export const login = async (email, password) => {
+export const login = async (email, contraseña) => {
   try {
-    const response = await api.post('/login', { email, password });
+    const response = await api.post('/login', { email, contraseña });
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
     }
@@ -34,14 +40,13 @@ export const login = async (email, password) => {
   }
 };
 
-export const register = async (nombre, apellido, email, password) => {
+export const register = async (nombre, apellido, email, contraseña) => {
   try {
     const response = await api.post('/register', {
       nombre,
       apellido,
       email,
-      password,
-      id_rol: 6, // Default role to "Viajero"
+      contraseña,
     });
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
@@ -56,3 +61,5 @@ export const register = async (nombre, apellido, email, password) => {
 export const logout = () => {
   localStorage.removeItem('token');
 };
+
+export default api;

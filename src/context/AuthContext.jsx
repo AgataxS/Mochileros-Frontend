@@ -1,64 +1,77 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserData, login as loginUser, register as registerUser, logout as logoutUser } from '../services/api';
+import { getUserData, login, register, logout } from '../services/api';
+import { toast } from 'react-toastify';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserData = async () => {
       try {
-        const userData = await getUserData();
-        setUser(userData);
-        if (userData.id_rol === 4) {
-          navigate('/admin');
-        } else {
-          navigate('/dashboard');
-        }
+        const data = await getUserData();
+        setUser(data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        logout();
+        console.error('Failed to fetch user data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (localStorage.getItem('token')) {
-      fetchUser();
-    }
+    fetchUserData();
   }, []);
 
-  const login = async (email, password) => {
+  const handleLogin = async (email, contraseña) => {
+    setLoading(true);
     try {
-      const response = await loginUser(email, password);
-      setUser(response.user);
-      navigate(response.user.id_rol === 4 ? '/admin' : '/dashboard');
+      await login(email, contraseña);
+      const data = await getUserData();
+      setUser(data);
+      toast.success('Login successful!');
+      navigate('/');
     } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+      toast.error('Failed to login. Please check your credentials.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const register = async (nombre, apellido, email, password) => {
+  const handleRegister = async (nombre, apellido, email, contraseña) => {
+    setLoading(true);
     try {
-      const response = await registerUser(nombre, apellido, email, password);
-      setUser(response.user);
-      navigate('/dashboard');
+      await register(nombre, apellido, email, contraseña);
+      const data = await getUserData();
+      setUser(data);
+      toast.success('Registration successful!');
+      navigate('/');
     } catch (error) {
-      console.error('Error registering:', error);
-      throw error;
+      toast.error('Failed to register. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const logout = () => {
+  const handleLogout = () => {
+    logout();
     setUser(null);
-    logoutUser();
+    toast.info('Logged out successfully.');
     navigate('/login');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        handleLogin,
+        handleRegister,
+        handleLogout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

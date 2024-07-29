@@ -15,39 +15,42 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="register-form">
-      <input
-        type="text"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-        placeholder="Nombre"
-        className="input"
-      />
-      <input
-        type="text"
-        value={apellido}
-        onChange={(e) => setApellido(e.target.value)}
-        placeholder="Apellido"
-        className="input"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        className="input"
-      />
-      <input
-        type="password"
-        value={contraseña}
-        onChange={(e) => setContraseña(e.target.value)}
-        placeholder="Contraseña"
-        className="input"
-      />
-      <button type="submit" className="button">
-        {loading ? <ClipLoader size={24} color={"#ffffff"} /> : 'Register'}
-      </button>
-    </form>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <input
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          placeholder="Nombre"
+          className="input mb-4"
+        />
+        <input
+          type="text"
+          value={apellido}
+          onChange={(e) => setApellido(e.target.value)}
+          placeholder="Apellido"
+          className="input mb-4"
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          className="input mb-4"
+        />
+        <input
+          type="password"
+          value={contraseña}
+          onChange={(e) => setContraseña(e.target.value)}
+          placeholder="Contraseña"
+          className="input mb-4"
+        />
+        <button type="submit" className="button w-full">
+          {loading ? <ClipLoader size={24} color={"#ffffff"} /> : 'Register'}
+        </button>
+      </form>
+    </div>
   );
 };
 

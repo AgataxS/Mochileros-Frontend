@@ -68,6 +68,30 @@ export const updateUserProfile = async (data) => {
   }
 };
 
+export const fetchExperiences = async () => {
+  try {
+    const response = await api.get('/experiencias');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching experiences:', error);
+    throw error;
+  }
+};
+
+export const postExperience = async (formData) => {
+  try {
+    const response = await api.post('/experiencias', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error posting experience:', error);
+    throw error;
+  }
+};
+
 export const fetchCountries = async () => {
   try {
     const response = await api.get('/paises');
@@ -94,30 +118,6 @@ export const addDestination = async (destinationData) => {
     return response.data;
   } catch (error) {
     console.error('Error adding destination:', error);
-    throw error;
-  }
-};
-
-export const createExperiencia = async (data) => {
-  try {
-    const response = await api.post('/experiencias', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error creating experiencia:', error);
-    throw error;
-  }
-};
-
-export const fetchExperiences = async () => {
-  try {
-    const response = await api.get('/experiencias');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching experiences:', error);
     throw error;
   }
 };

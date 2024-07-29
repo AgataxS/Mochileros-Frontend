@@ -3,14 +3,34 @@
 @tailwind utilities;
 
 /* Custom styles */
+body {
+  @apply bg-gray-100;
+}
+
 .navbar {
-  @apply bg-blue-500 p-4 text-white;
+  @apply bg-purple-600 text-white p-4 flex justify-between items-center;
+}
+
+.navbar a {
+  @apply text-white no-underline;
 }
 
 .input {
-  @apply border p-2 m-2;
+  @apply border p-2 m-2 rounded w-full;
 }
 
 .button {
-  @apply bg-blue-500 text-white p-2 m-2;
+  @apply bg-purple-600 text-white p-2 m-2 rounded;
+}
+
+.profile-form, .register-form, .login-form {
+  @apply max-w-md mx-auto p-6 bg-white rounded shadow-md;
+}
+
+.card {
+  @apply p-6 m-4 bg-white rounded shadow-md cursor-pointer transition-transform transform hover:scale-105;
+}
+
+.form-title {
+  @apply text-2xl font-bold mb-6 text-center;
 }

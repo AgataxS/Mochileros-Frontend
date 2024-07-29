@@ -1,24 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ProfilePicture from '../common/ProfilePicture';
 
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
+  const location = useLocation();
+
+  if (location.pathname === '/login' || location.pathname === '/register') {
+    return null;
+  }
 
   return (
     <nav className="navbar">
-      <Link to="/">Home</Link>
+      <div className="flex items-center">
+        <Link to="/">MochiShare</Link>
+        {user && <span className="ml-2">{user.nombre}</span>}
+      </div>
       {user ? (
-        <>
-          <Link to="/dashboard">Dashboard</Link>
-          {user.id_rol === 4 && <Link to="/admin">Admin</Link>}
-          <button onClick={handleLogout}>Logout</button>
-        </>
+        <div className="flex items-center">
+          <ProfilePicture user={user} />
+          <Link to="/forum" className="ml-4">Foro</Link>
+          <Link to="/experience-list" className="ml-4">Experiencias</Link>
+          <button onClick={handleLogout} className="ml-4">Logout</button>
+        </div>
       ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
+        <div>
+          <Link to="/login" className="ml-4">Login</Link>
+          <Link to="/register" className="ml-4">Register</Link>
+        </div>
       )}
     </nav>
   );

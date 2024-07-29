@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserData, login, register, logout } from '../services/api';
+import { getUserData, login, register, logout, updateUserProfile } from '../services/api';
 import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
@@ -62,6 +62,16 @@ export const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
+  const handleUpdateProfile = async (data) => {
+    try {
+      const updatedUser = await updateUserProfile(data);
+      setUser(updatedUser);
+      toast.success('Profile updated successfully!');
+    } catch (error) {
+      toast.error('Failed to update profile. Please try again.');
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -70,6 +80,7 @@ export const AuthProvider = ({ children }) => {
         handleLogin,
         handleRegister,
         handleLogout,
+        handleUpdateProfile,
       }}
     >
       {children}

@@ -14,6 +14,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="flex items-center">
+      <img src="/l1.png" alt="Logo" className="mx-auto mb-6 w-20 h-12 object-contain " />
         <Link to="/">MochiShare</Link>
         {user && <span className="ml-2">{user.nombre}</span>}
       </div>

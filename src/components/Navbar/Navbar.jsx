@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <ProfilePicture user={user} />
           <Link to="/forum" className="ml-4">Foro</Link>
-          <Link to="/experience-list" className="ml-4">Experiencias</Link>
+          <Link to="/experiences" className="ml-4">Experiencias</Link>
           <button onClick={handleLogout} className="ml-4">Logout</button>
         </div>
       ) : (

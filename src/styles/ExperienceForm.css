@@ -18,12 +18,16 @@
 }
 
 .publish-button {
-  background-color: #4CAF50;
+  background-color: #6A0DAD; /* Púrpura */
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.publish-button:hover {
+  background-color: #4B0082; /* Un tono más oscuro de púrpura */
 }
 
 .experience-image {
@@ -59,7 +63,7 @@
 }
 
 .add-destination-button {
-  background-color: #4CAF50;
+  background-color: #6A0DAD; /* Púrpura */
   color: white;
   border: none;
   padding: 10px 20px;
